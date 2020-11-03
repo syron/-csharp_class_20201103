@@ -43,17 +43,17 @@ namespace PeopleManager
         {
             // get current folder
             Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-            Windows.Storage.StorageFile sampleFile = null;
+            Windows.Storage.StorageFile file;
 
             // check if file exists.
             // If the file does not exists, create the file
             try
             {
-                sampleFile = await storageFolder.GetFileAsync(FileName);
+                file = await storageFolder.GetFileAsync(FileName);
             }
             catch (FileNotFoundException fnfe)
             {
-                sampleFile = await storageFolder.CreateFileAsync(FileName);
+                file = await storageFolder.CreateFileAsync(FileName);
             }
             catch (Exception ex)
             {
@@ -62,7 +62,7 @@ namespace PeopleManager
             }
 
             // now we know we have the file, lets read from it.
-            var text = await Windows.Storage.FileIO.ReadTextAsync(sampleFile);
+            var text = await Windows.Storage.FileIO.ReadTextAsync(file);
 
             return JsonConvert.DeserializeObject<ObservableCollection<Person>>(text);
         }
@@ -70,8 +70,8 @@ namespace PeopleManager
         private IAsyncAction WritePeopleToFile()
         {
             Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-            Windows.Storage.StorageFile sampleFile = storageFolder.GetFileAsync(FileName).AsTask().GetAwaiter().GetResult();
-            return Windows.Storage.FileIO.WriteTextAsync(sampleFile, JsonConvert.SerializeObject(People), Windows.Storage.Streams.UnicodeEncoding.Utf8);
+            Windows.Storage.StorageFile file = storageFolder.GetFileAsync(FileName).AsTask().GetAwaiter().GetResult();
+            return Windows.Storage.FileIO.WriteTextAsync(file, JsonConvert.SerializeObject(People), Windows.Storage.Streams.UnicodeEncoding.Utf8);
         }
 
         /// <summary>
