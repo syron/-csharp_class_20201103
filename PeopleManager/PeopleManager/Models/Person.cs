@@ -14,6 +14,9 @@ namespace PeopleManager.Models
 
         public override string ToString()
         {
+            if (Age < 0) 
+                return "";
+
             return Name + " (" + Age + ")";
         }
     }
