@@ -48,3 +48,4 @@ C:\git\-csharp_class_20201103\PeopleManager\PeopleManager\obj\x86\Debug\Pages\Ad
 C:\git\-csharp_class_20201103\PeopleManager\PeopleManager\obj\x86\Debug\Pages\AddPersonPage.g.cs
 C:\git\-csharp_class_20201103\PeopleManager\PeopleManager\obj\x86\Debug\Pages\AddPersonPage.xaml
 C:\git\-csharp_class_20201103\PeopleManager\PeopleManager\obj\x86\Debug\Pages\AddPersonPage.xbf
+C:\git\-csharp_class_20201103\PeopleManager\PeopleManager\bin\x86\Debug\Newtonsoft.Json.dll
