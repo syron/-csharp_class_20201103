@@ -1,0 +1,1 @@
+C:\git\-csharp_class_20201103\PeopleManager\PeopleManager\PeopleManager.csproj;x86
