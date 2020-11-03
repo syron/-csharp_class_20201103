@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PeopleManager.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,14 +23,38 @@ namespace PeopleManager.Pages
     /// </summary>
     public sealed partial class AddPersonPage : Page
     {
+        private App _app { get; set; }
+
         public AddPersonPage()
         {
             this.InitializeComponent();
+
+            _app = (App)App.Current;
         }
 
         private void BackToMainPageButton_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(MainPage));
+        }
+
+        private void AddPersonButton_Click(object sender, RoutedEventArgs e)
+        {
+            string name = PersonNameTextBox.Text;
+            string age = PersonAgeTextBox.Text;
+
+            int ageInt = 0;
+
+            if (int.TryParse(age, out ageInt))
+            {
+                _app.People.Add(new Person() { Name = name, Age = ageInt });
+
+                PersonNameTextBox.Text = "";
+                PersonAgeTextBox.Text = "";
+            }else
+            {
+                ErrorMessage.Text = "Age is not a number... Fix it, NOW!";
+            }
+
         }
     }
 }

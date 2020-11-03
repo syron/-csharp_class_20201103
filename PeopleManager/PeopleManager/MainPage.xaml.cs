@@ -25,31 +25,37 @@ namespace PeopleManager
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        public ObservableCollection<Person> People { get; set; }
+        private App _app { get; set; }
 
         public MainPage()
         {
             this.InitializeComponent();
 
-            People = new ObservableCollection<Person>()
-            {
-                new Person() { Name="Robert", Age=32 },
-                new Person() { Name="Winston", Age=30 },
-                new Person() { Name="Leonard", Age=40 }
-            };
+            _app = (App)App.Current;
 
+            _app.People.CollectionChanged += People_CollectionChanged;
+        }
+
+        private void People_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            // write to file, database, APP property
         }
 
         private void RemovePersonFromPeopleListButton_Click(object sender, RoutedEventArgs e)
         {
             Person person = (Person)PeopleListComboBox.SelectedItem;
 
-            People.Remove(person);
+            _app.People.Remove(person);
         }
 
         private void GoToAddPersonPageButton_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(AddPersonPage));
+        }
+
+        private void PeopleListComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

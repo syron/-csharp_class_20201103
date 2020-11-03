@@ -9,8 +9,8 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <ComboBox Name="PeopleListComboBox" Margin="150,468,0,0" Width="180" ItemsSource="{x:Bind People}"  />
-        <Button Name="RemovePersonFromPeopleListButton" Click="RemovePersonFromPeopleListButton_Click" Content="Remove" Margin="368,468,0,0" VerticalAlignment="Top"/>
+        <ComboBox Name="PeopleListComboBox" Margin="150,468,0,0" SelectionChanged="PeopleListComboBox_SelectionChanged" Width="180" ItemsSource="{x:Bind _app.People}" PlaceholderText=""  />
+        <Button Name="RemovePersonFromPeopleListButton" IsEnabled="false" Click="RemovePersonFromPeopleListButton_Click" Content="Remove" Margin="368,468,0,0" VerticalAlignment="Top"/>
         <Button Name="GoToAddPersonPageButton" Click="GoToAddPersonPageButton_Click"  Content="Gå till Lägg till Page" Margin="43,36,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Page>

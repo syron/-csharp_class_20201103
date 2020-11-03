@@ -10,6 +10,11 @@
 
     <Grid>
         <Button Content="Back to Main Page" Click="BackToMainPageButton_Click" Name="BackToMainPageButton" Margin="10,10,0,0" VerticalAlignment="Top"/>
-
+        <TextBox HorizontalAlignment="Left" Name="PersonNameTextBox" Margin="284,331,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Name="PersonAgeTextBox"  Margin="391,331,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Button Name="AddPersonButton" Click="AddPersonButton_Click" Content="Add Person" Margin="488,331,0,0" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="287,307,0,0" Text="Name" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="391,307,0,0" Text="Age" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock Name="ErrorMessage" HorizontalAlignment="Left" Margin="284,386,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
     </Grid>
 </Page>

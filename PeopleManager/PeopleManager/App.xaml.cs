@@ -1,5 +1,7 @@
-﻿using System;
+﻿using PeopleManager.Models;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -22,6 +24,8 @@ namespace PeopleManager
     /// </summary>
     sealed partial class App : Application
     {
+        public ObservableCollection<Person> People { get; set; }
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -40,6 +44,17 @@ namespace PeopleManager
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
+
+            // read from file
+            // or
+            // do the following
+            People = new ObservableCollection<Person>()
+            {
+                new Person() { Name="", Age=-1 },
+                new Person() { Name="Robert", Age=32 },
+                new Person() { Name="Winston", Age=30 },
+                new Person() { Name="Leonard", Age=40 }
+            };
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
