@@ -55,9 +55,9 @@ namespace PeopleManager
 
         private void PeopleListComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //Person person = (Person)PeopleListComboBox.SelectedItem;
+            Person person = (Person)PeopleListComboBox.SelectedItem;
 
-            Person person = (Person)e.AddedItems[0];
+            //Person person = (Person)e.AddedItems[0];
 
             if (person == null || person.Age < 0)
             {
