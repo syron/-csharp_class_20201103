@@ -32,13 +32,6 @@ namespace PeopleManager
             this.InitializeComponent();
 
             _app = (App)App.Current;
-
-            _app.People.CollectionChanged += People_CollectionChanged;
-        }
-
-        private void People_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            // write to file, database, APP property
         }
 
         private void RemovePersonFromPeopleListButton_Click(object sender, RoutedEventArgs e)
@@ -55,9 +48,9 @@ namespace PeopleManager
 
         private void PeopleListComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //Person person = (Person)PeopleListComboBox.SelectedItem;
+            Person person = (Person)PeopleListComboBox.SelectedItem;
 
-            Person person = (Person)e.AddedItems[0];
+            //Person person = (Person)e.AddedItems[0];
 
             if (person == null || person.Age < 0)
             {

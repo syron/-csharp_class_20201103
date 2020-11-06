@@ -1,10 +1,12 @@
-﻿using PeopleManager.Models;
+﻿using Newtonsoft.Json;
+using PeopleManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -24,6 +26,7 @@ namespace PeopleManager
     /// </summary>
     sealed partial class App : Application
     {
+        const string FileName = "people.json";
         public ObservableCollection<Person> People { get; set; }
 
         /// <summary>
@@ -36,25 +39,83 @@ namespace PeopleManager
             this.Suspending += OnSuspending;
         }
 
+        private async void People_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            // XML + JSON
+            string jsonPeople;
+
+            // jsonPeople = JsonConvert.SerializeObject(People, Formatting.Indented);
+            jsonPeople = JsonConvert.SerializeObject(People, Formatting.None);
+
+            Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+
+            Windows.Storage.StorageFile file;
+            try
+            {
+                file = await storageFolder.GetFileAsync(FileName);
+            }
+            catch (FileNotFoundException fnfe)
+            {
+                file = await storageFolder.CreateFileAsync(FileName);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            await Windows.Storage.FileIO.WriteTextAsync(file, jsonPeople, Windows.Storage.Streams.UnicodeEncoding.Utf8);
+        }
+
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
 
             // read from file
+            Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+
+            Windows.Storage.StorageFile file;
+            try
+            {
+                file = await storageFolder.GetFileAsync(FileName);
+            }
+            catch (FileNotFoundException fnfe)
+            {
+                file = await storageFolder.CreateFileAsync(FileName);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            var text = await Windows.Storage.FileIO.ReadTextAsync(file);
+            People = JsonConvert.DeserializeObject<ObservableCollection<Person>>(text);
+
+            if (People == null)
+            {
+                People = new ObservableCollection<Person>()
+                {
+                    new Person() { Name="", Age=-1 },
+                    new Person() { Name="Robert", Age=32 },
+                    new Person() { Name="Winston", Age=30 },
+                    new Person() { Name="Leonard", Age=40 }
+                };
+            }
+
             // or
             // do the following
-            People = new ObservableCollection<Person>()
-            {
-                new Person() { Name="", Age=-1 },
-                new Person() { Name="Robert", Age=32 },
-                new Person() { Name="Winston", Age=30 },
-                new Person() { Name="Leonard", Age=40 }
-            };
+            //People = new ObservableCollection<Person>()
+            //{
+            //    new Person() { Name="", Age=-1 },
+            //    new Person() { Name="Robert", Age=32 },
+            //    new Person() { Name="Winston", Age=30 },
+            //    new Person() { Name="Leonard", Age=40 }
+            //};
+            People.CollectionChanged += People_CollectionChanged;
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active

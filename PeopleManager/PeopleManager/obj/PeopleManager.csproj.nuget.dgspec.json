@@ -10,16 +10,18 @@
         "projectUniqueName": "C:\\git\\-csharp_class_20201103\\PeopleManager\\PeopleManager\\PeopleManager.csproj",
         "projectName": "PeopleManager",
         "projectPath": "C:\\git\\-csharp_class_20201103\\PeopleManager\\PeopleManager\\PeopleManager.csproj",
-        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
         "outputPath": "C:\\git\\-csharp_class_20201103\\PeopleManager\\PeopleManager\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "uap10.0.17763"
@@ -40,6 +42,10 @@
             "Microsoft.NETCore.UniversalWindowsPlatform": {
               "target": "Package",
               "version": "[6.2.10, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
             }
           },
           "imports": [
