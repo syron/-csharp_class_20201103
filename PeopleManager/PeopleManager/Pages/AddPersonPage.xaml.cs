@@ -46,7 +46,7 @@ namespace PeopleManager.Pages
 
             if (int.TryParse(age, out ageInt))
             {
-                _app.People.Add(new Person() { Name = name, Age = ageInt });
+                _app.PeopleHelper.Add(new Person() { Name = name, Age = ageInt });
 
                 PersonNameTextBox.Text = "";
                 PersonAgeTextBox.Text = "";

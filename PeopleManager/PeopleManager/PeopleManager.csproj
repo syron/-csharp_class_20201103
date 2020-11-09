@@ -119,12 +119,15 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DataCollectionHelper.cs" />
     <Compile Include="Helpers\ExampleGenerics.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\City.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Place.cs" />
+    <Compile Include="Models\Road.cs" />
     <Compile Include="Pages\AddPersonPage.xaml.cs">
       <DependentUpon>AddPersonPage.xaml</DependentUpon>
     </Compile>

@@ -38,7 +38,7 @@ namespace PeopleManager
         {
             Person person = (Person)PeopleListComboBox.SelectedItem;
 
-            _app.People.Remove(person);
+            _app.PeopleHelper.Remove(person);
         }
 
         private void GoToAddPersonPageButton_Click(object sender, RoutedEventArgs e)
@@ -49,8 +49,6 @@ namespace PeopleManager
         private void PeopleListComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Person person = (Person)PeopleListComboBox.SelectedItem;
-
-            //Person person = (Person)e.AddedItems[0];
 
             if (person == null || person.Age < 0)
             {
