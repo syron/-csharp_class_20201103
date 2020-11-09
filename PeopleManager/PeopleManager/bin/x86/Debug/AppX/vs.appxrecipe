@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\git\-csharp_class_20201103\PeopleManager\PeopleManager\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-11-06T10:08:54.701</Modified>
+      <Modified>2020-11-09T09:53:37.724</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\git\-csharp_class_20201103\PeopleManager\PeopleManager\bin\x86\Debug\PeopleManager.exe">
       <PackagePath>entrypoint\PeopleManager.exe</PackagePath>
-      <Modified>2020-11-06T10:08:53.990</Modified>
+      <Modified>2020-11-09T09:53:37.289</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Administrator\.nuget\packages\newtonsoft.json\12.0.3\lib\netstandard2.0\Newtonsoft.Json.dll">
       <PackagePath>Newtonsoft.Json.dll</PackagePath>
@@ -94,15 +94,15 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\git\-csharp_class_20201103\PeopleManager\PeopleManager\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2020-11-06T10:08:53.825</Modified>
+      <Modified>2020-11-09T09:53:37.142</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\git\-csharp_class_20201103\PeopleManager\PeopleManager\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2020-11-06T10:08:53.826</Modified>
+      <Modified>2020-11-09T09:53:37.143</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\git\-csharp_class_20201103\PeopleManager\PeopleManager\bin\x86\Debug\Pages\AddPersonPage.xbf">
       <PackagePath>Pages\AddPersonPage.xbf</PackagePath>
-      <Modified>2020-11-06T10:08:53.826</Modified>
+      <Modified>2020-11-09T09:53:37.143</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.18362.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -110,11 +110,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\git\-csharp_class_20201103\PeopleManager\PeopleManager\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2020-11-06T08:11:42.490</Modified>
+      <Modified>2020-11-09T09:43:53.960</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\git\-csharp_class_20201103\PeopleManager\PeopleManager\bin\x86\Debug\Core\PeopleManager.exe">
       <PackagePath>PeopleManager.exe</PackagePath>
-      <Modified>2020-11-06T10:08:54.690</Modified>
+      <Modified>2020-11-09T09:53:37.721</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

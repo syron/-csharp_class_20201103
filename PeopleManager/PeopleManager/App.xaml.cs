@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
@@ -22,6 +23,109 @@ using Windows.UI.Xaml.Navigation;
 namespace PeopleManager
 {
     /// <summary>
+    /// This is an implementation of a car that will be driven by a third party such as a private person or business person.
+    
+    /// </summary>
+    public class Car
+    {
+        public void Accelerate() { }
+        
+        public void BrakeWithBrakesOnFrontWheels() { }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public void Move(int x, int y)
+        {
+
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class P
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public void M() { }
+
+        public 
+    }
+
+
+    public class DataPeopleHelper
+    {
+        private string _fileName { get; set; }
+
+        public DataPeopleHelper(string fileName)
+        {
+            _fileName = fileName;
+        }
+
+        public async Task<T> ReadFromFile<T>()
+        {
+            // read from file
+            Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+            Windows.Storage.StorageFile file;
+
+            // check if the file exists.
+            try
+            {
+                file = await storageFolder.GetFileAsync(_fileName);
+            }
+            catch (FileNotFoundException fnfe)
+            {
+                file = await storageFolder.CreateFileAsync(_fileName);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            var text = await Windows.Storage.FileIO.ReadTextAsync(file);
+            T obj = JsonConvert.DeserializeObject<T>(text);
+
+
+
+            return obj;
+        }
+
+        public async void WriteToFile<T>(T data)
+        {
+            // XML + JSON
+            string jsonPeople;
+
+            // jsonPeople = JsonConvert.SerializeObject(People, Formatting.Indented);
+            jsonPeople = JsonConvert.SerializeObject(data, Formatting.None);
+
+            Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+
+            Windows.Storage.StorageFile file;
+            try
+            {
+                file = await storageFolder.GetFileAsync(_fileName);
+            }
+            catch (FileNotFoundException fnfe)
+            {
+                file = await storageFolder.CreateFileAsync(_fileName);
+                System.Diagnostics.Trace.WriteLine(fnfe.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            await Windows.Storage.FileIO.WriteTextAsync(file, jsonPeople, Windows.Storage.Streams.UnicodeEncoding.Utf8);
+        }
+    }
+
+    
+
+    /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
     sealed partial class App : Application
@@ -37,33 +141,19 @@ namespace PeopleManager
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
         }
 
         private async void People_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            // XML + JSON
-            string jsonPeople;
+            DataPeopleHelper helper = new DataPeopleHelper("people.json");
+            helper.WriteToFile(People);
+        }
 
-            // jsonPeople = JsonConvert.SerializeObject(People, Formatting.Indented);
-            jsonPeople = JsonConvert.SerializeObject(People, Formatting.None);
-
-            Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-
-            Windows.Storage.StorageFile file;
-            try
-            {
-                file = await storageFolder.GetFileAsync(FileName);
-            }
-            catch (FileNotFoundException fnfe)
-            {
-                file = await storageFolder.CreateFileAsync(FileName);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            await Windows.Storage.FileIO.WriteTextAsync(file, jsonPeople, Windows.Storage.Streams.UnicodeEncoding.Utf8);
+        private async void Place_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            DataPeopleHelper placeHelper = new DataPeopleHelper("places.json");
+            placeHelper.WriteToFile(new ObservableCollection<Place>() { new Place() { Name = "Karlstad" } });
         }
 
         /// <summary>
@@ -75,25 +165,11 @@ namespace PeopleManager
         {
             Frame rootFrame = Window.Current.Content as Frame;
 
-            // read from file
-            Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+            DataPeopleHelper helper = new DataPeopleHelper("people.json");
+            People = await helper.ReadFromFile<ObservableCollection<Person>>();
 
-            Windows.Storage.StorageFile file;
-            try
-            {
-                file = await storageFolder.GetFileAsync(FileName);
-            }
-            catch (FileNotFoundException fnfe)
-            {
-                file = await storageFolder.CreateFileAsync(FileName);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            var text = await Windows.Storage.FileIO.ReadTextAsync(file);
-            People = JsonConvert.DeserializeObject<ObservableCollection<Person>>(text);
+            DataPeopleHelper stringHelper = new DataPeopleHelper("places.json");
+            ObservableCollection<Place> myPlaces = await stringHelper.ReadFromFile<ObservableCollection<Place>>();
 
             if (People == null)
             {
