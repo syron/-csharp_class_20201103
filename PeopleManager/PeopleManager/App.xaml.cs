@@ -1,129 +1,105 @@
 ﻿using Newtonsoft.Json;
 using PeopleManager.Models;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace PeopleManager
 {
     /// <summary>
-    /// This is an implementation of a car that will be driven by a third party such as a private person or business person.
-    
+    /// Class that handles reading from and writing to files, no matter what 
     /// </summary>
-    public class Car
-    {
-        public void Accelerate() { }
-        
-        public void BrakeWithBrakesOnFrontWheels() { }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        public void Move(int x, int y)
-        {
-
-        }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public class P
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        public void M() { }
-
-        public 
-    }
-
-
     public class DataPeopleHelper
     {
+        /// <summary>
+        /// The file from which the program will read and write to.
+        /// </summary>
         private string _fileName { get; set; }
 
+        /// <summary>
+        /// Constructor that is fired instantly when an object is being initiated.
+        /// </summary>
+        /// <param name="fileName">The filename to read from and write to.</param>
         public DataPeopleHelper(string fileName)
         {
             _fileName = fileName;
         }
 
+        /// <summary>
+        /// Reads from a JSON file by filename and returns the result T.
+        /// </summary>
+        /// <typeparam name="T">The type of object that is being stored in the file</typeparam>
+        /// <returns>The object T</returns>
         public async Task<T> ReadFromFile<T>()
         {
-            // read from file
+            // Locate the folder which this UWP application can read from and write to.
             Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-            Windows.Storage.StorageFile file;
 
-            // check if the file exists.
+            // Initiate a file variable.
+            Windows.Storage.StorageFile file;
             try
             {
+                // if the file exists, the file variable will be set to that.
                 file = await storageFolder.GetFileAsync(_fileName);
             }
             catch (FileNotFoundException fnfe)
             {
+                // if the file does not exist, an exception will be thrown, but we will make sure the file will be created.
                 file = await storageFolder.CreateFileAsync(_fileName);
             }
             catch (Exception ex)
             {
+                // if this exception occurs, this means we do not have handled the an exception and we want the program to crash.
                 throw ex;
             }
 
             var text = await Windows.Storage.FileIO.ReadTextAsync(file);
             T obj = JsonConvert.DeserializeObject<T>(text);
 
-
-
             return obj;
         }
 
+        /// <summary>
+        /// Writes T to a file by the initial filename as JSON.
+        /// </summary>
+        /// <typeparam name="T">The object type to store</typeparam>
+        /// <param name="data">The actual object to store in the file</param>
         public async void WriteToFile<T>(T data)
         {
-            // XML + JSON
-            string jsonPeople;
+            // Convert data to JSON object (https://www.w3schools.com/whatis/whatis_json.asp)
+            string jsonContent = JsonConvert.SerializeObject(data, Formatting.None);
 
-            // jsonPeople = JsonConvert.SerializeObject(People, Formatting.Indented);
-            jsonPeople = JsonConvert.SerializeObject(data, Formatting.None);
-
+            // Locate the folder which this UWP application can read from and write to.
             Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
 
+            // Initiate a file variable.
             Windows.Storage.StorageFile file;
             try
             {
+                // if the file exists, the file variable will be set to that.
                 file = await storageFolder.GetFileAsync(_fileName);
             }
             catch (FileNotFoundException fnfe)
             {
+                // if the file does not exist, an exception will be thrown, but we will make sure the file will be created.
                 file = await storageFolder.CreateFileAsync(_fileName);
-                System.Diagnostics.Trace.WriteLine(fnfe.ToString());
             }
             catch (Exception ex)
             {
+                // if this exception occurs, this means we do not have handled the an exception and we want the program to crash.
                 throw ex;
             }
 
-            await Windows.Storage.FileIO.WriteTextAsync(file, jsonPeople, Windows.Storage.Streams.UnicodeEncoding.Utf8);
+            // Now, write the JSON object to the actual file.
+            await Windows.Storage.FileIO.WriteTextAsync(file, jsonContent, Windows.Storage.Streams.UnicodeEncoding.Utf8);
         }
     }
-
-    
 
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
